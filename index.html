@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metecogy | Re-engineering Healthcare</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Health-Tech -->
+    <!-- Application Structure Plan: A single-page, vertical scrolling layout with a sticky navigation bar. The structure is thematic: Hero, Problem, Solution, Value Proposition (for Patients & Hospitals), Go-to-Market Strategy, Revenue Model, and a final Vision statement. This non-linear, thematic flow allows investors or users to jump to sections of interest, making information discovery more efficient than a forced linear slide deck. The goal is to tell a compelling story by first establishing the problem, then presenting Metecogy as the definitive solution, backing it up with clear value propositions and a viable business plan. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Hospital performance metrics (e.g., efficiency, patient satisfaction). Goal: Compare 'before' and 'after' Metecogy. Viz: Interactive Bar Chart (Chart.js). Interaction: Tooltips on hover provide specific data points. Justification: A bar chart offers a direct, powerful visual comparison of improvement.
+        - Report Info: Revenue streams. Goal: Show the composition of the business model. Viz: Interactive Doughnut Chart (Chart.js). Interaction: Hovering over segments reveals the name and projected contribution of each revenue stream. Justification: A doughnut chart is excellent for showing part-to-whole relationships in a clean, modern way.
+        - Report Info: Go-to-market strategy. Goal: Organize the launch plan. Viz: Numbered step-by-step process flow diagram. Method: Styled HTML/Tailwind. Interaction: Clear visual progression guides the user through the plan. Justification: Simplifies a complex strategy into digestible steps.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* bg-slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #2563eb; /* theme-primary-600 */
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">Metecogy</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#problem" class="nav-link text-gray-600">The Problem</a>
+                <a href="#solution" class="nav-link text-gray-600">Our Solution</a>
+                <a href="#value" class="nav-link text-gray-600">Value Proposition</a>
+                <a href="#strategy" class="nav-link text-gray-600">Strategy</a>
+                <a href="#revenue" class="nav-link text-gray-600">Revenue Model</a>
+            </div>
+            <a href="#solution" class="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Get Started</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8 md:py-16">
+
+        <!-- Hero Section -->
+        <section class="text-center min-h-[60vh] flex flex-col justify-center items-center">
+            <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+                Connecting Patients, <br> Empowering Hospitals.
+            </h1>
+            <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl">
+                Metecogy is a unified health-tech platform designed to eliminate delays, streamline communication, and save lives when every second counts.
+            </p>
+            <div class="mt-8">
+                <a href="#solution" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">Explore Our Solutions</a>
+            </div>
+        </section>
+
+        <!-- The Problem Section -->
+        <section id="problem" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">The Critical Gaps in Healthcare</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Patients and providers face a fragmented system filled with delays and inefficiencies that put lives at risk.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="section-card p-6 text-center">
+                    <div class="text-3xl text-red-500 mb-3">⌛</div>
+                    <h3 class="text-xl font-semibold mb-2">Booking Delays</h3>
+                    <p class="text-gray-600">No real-time view of doctor availability leads to frustrating and time-consuming appointment scheduling.</p>
+                </div>
+                <div class="section-card p-6 text-center">
+                    <div class="text-3xl text-red-500 mb-3">🚑</div>
+                    <h3 class="text-xl font-semibold mb-2">Emergency Response Lag</h3>
+                    <p class="text-gray-600">Calling for an ambulance is slow, with no system for dispatching the nearest unit or preparing the hospital for arrival.</p>
+                </div>
+                <div class="section-card p-6 text-center">
+                    <div class="text-3xl text-red-500 mb-3">💊</div>
+                    <h3 class="text-xl font-semibold mb-2">Medication Confusion</h3>
+                    <p class="text-gray-600">Patients struggle to manage complex dosage schedules, leading to poor adherence and health complications.</p>
+                </div>
+                <div class="section-card p-6 text-center">
+                    <div class="text-3xl text-red-500 mb-3">⚕️</div>
+                    <h3 class="text-xl font-semibold mb-2">Pharmacy Scarcity</h3>
+                    <p class="text-gray-600">Finding a pharmacy with specific medicines in stock is a stressful, manual process during critical times.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Solution Section -->
+        <section id="solution" class="py-16 bg-white rounded-2xl shadow-lg">
+            <div class="text-center mb-12 px-6">
+                <h2 class="text-3xl md:text-4xl font-bold">One Platform, Complete Solution</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Metecogy integrates every step of the patient journey into a seamless, intelligent, and life-saving ecosystem.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 px-6">
+                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                    <h3 class="text-xl font-semibold text-blue-800">For Patients: Healthcare in Your Hand</h3>
+                    <ul class="mt-4 space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✓</span><span><strong>Instant Doctor Booking:</strong> Find and book available doctors in real-time.</span></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✓</span><span><strong>One-Touch Emergency:</strong> A dedicated button with GPS tracking connects you to our emergency response team instantly.</span></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✓</span><span><strong>Smart Reminders:</strong> Digital storage of prescriptions with automated dosage reminders.</span></li>
+                        <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✓</span><span><strong>Pharmacy Locator:</strong> Instantly find nearby pharmacies with your required medicines in stock.</span></li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                    <h3 class="text-xl font-semibold text-green-800">For Hospitals: The Smart Upgrade</h3>
+                     <ul class="mt-4 space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>Pre-Arrival Alerts:</strong> Get notified when an emergency patient is minutes away, allowing time to prepare staff and equipment.</span></li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>Digital Appointment Management:</strong> A dashboard to manage doctor slots, reduce no-shows with reminders, and eliminate overcrowding.</span></li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>Enhanced Online Presence:</strong> A free, powerful online profile to attract more patients.</span></li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>Actionable Analytics:</strong> Gain insights into booking trends, department traffic, and peak hours to optimize operations.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Proposition Section -->
+        <section id="value" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">The Metecogy Impact</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">We don't just offer features; we deliver measurable improvements in efficiency and patient outcomes.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <div class="chart-container">
+                    <canvas id="hospitalImpactChart"></canvas>
+                </div>
+                <p class="text-center mt-4 text-sm text-gray-500">This chart illustrates the projected improvements for hospitals partnering with Metecogy. Interact with the bars to see the data.</p>
+            </div>
+        </section>
+
+        <!-- Strategy Section -->
+        <section id="strategy" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">Our Go-to-Market Strategy</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">A strategic, two-phase approach to build a comprehensive and trusted network.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="section-card p-8">
+                    <span class="text-blue-600 font-bold text-4xl">1</span>
+                    <h3 class="text-2xl font-semibold mt-2 mb-4">Phase 1: Build the Foundation</h3>
+                    <p class="text-gray-600 mb-4">We begin by populating our platform with publicly available data from government hospitals. This provides immediate value to users without requiring initial partnerships.</p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Govt. Verified</span>
+                        <span class="inline-block bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Partner Hospital</span>
+                    </div>
+                     <p class="text-gray-600 mt-2 text-sm">Clear tagging differentiates listed hospitals from official partners, building user trust through transparency.</p>
+                </div>
+                <div class="section-card p-8">
+                    <span class="text-blue-600 font-bold text-4xl">2</span>
+                    <h3 class="text-2xl font-semibold mt-2 mb-4">Phase 2: Scale & Partner</h3>
+                    <p class="text-gray-600">With an established user base, we approach private hospitals and government health offices with a proven platform. We offer our premium dashboard and emergency response system to turn them into "smart hospitals," securing partnerships, contracts, and official recognition.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue Model Section -->
+        <section id="revenue" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold">A Diversified Revenue Model</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Our multi-stream approach ensures sustainable growth and long-term profitability.</p>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="w-full md:w-1/2">
+                    <div class="chart-container">
+                        <canvas id="revenueModelChart"></canvas>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="font-semibold text-lg">Commission & Subscriptions</h4>
+                        <p class="text-gray-600 text-sm">A percentage fee on bookings from private hospitals and recurring SaaS fees for access to our premium dashboard.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="font-semibold text-lg">Premium Services & Grants</h4>
+                        <p class="text-gray-600 text-sm">Small fees for value-added patient services and securing government grants for digitizing public health infrastructure.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="font-semibold text-lg">Sponsorships (Future)</h4>
+                        <p class="text-gray-600 text-sm">As our user base grows, sponsored listings for hospitals, labs, and pharmacies will provide an additional revenue stream.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <h3 class="text-2xl font-bold">Join us in building the future of healthcare.</h3>
+            <p class="mt-2">TEAM METECOGY</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chart 1: Hospital Impact
+            const hospitalCtx = document.getElementById('hospitalImpactChart');
+            if(hospitalCtx) {
+                new Chart(hospitalCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Emergency Prep Time', 'Patient Wait Time', 'Appointment No-shows', 'Patient Satisfaction'],
+                        datasets: [{
+                            label: 'Before Metecogy',
+                            data: [10, 30, 25, 60],
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }, {
+                            label: 'With Metecogy',
+                            data: [90, 10, 5, 95],
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Hospital Performance: Before vs. After Metecogy',
+                                font: { size: 16 }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += context.parsed.y + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%'
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart 2: Revenue Model
+            const revenueCtx = document.getElementById('revenueModelChart');
+            if(revenueCtx) {
+                new Chart(revenueCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Commissions', 'Subscriptions (SaaS)', 'Premium Services', 'Govt. Grants', 'Sponsorships'],
+                        datasets: [{
+                            label: 'Revenue Mix',
+                            data: [40, 30, 15, 10, 5],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(75, 192, 192, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(153, 102, 255, 0.7)',
+                                'rgba(255, 159, 64, 0.7)'
+                            ],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Projected Revenue Streams',
+                                font: { size: 16 }
+                            },
+                            legend: {
+                                position: 'bottom',
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
